@@ -10,4 +10,9 @@ class Matiere extends Model
 	{
 		return $this->hasMany(Carte::class);
 	}
+
+	public function cartes_publiques()
+	{
+		return $this->hasMany(CartePublique::class);
+	}
 }

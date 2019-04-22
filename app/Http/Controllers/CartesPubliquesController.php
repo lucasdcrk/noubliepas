@@ -2,79 +2,75 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
-use App\Matiere;
-use App\Carte;
+use App\CartePublique;
 use Illuminate\Http\Request;
 
-class CartesController extends Controller
+class CartesPubliquesController extends Controller
 {
-	public function index()
+    public function index()
 	{
-		$cartes = Auth::user()->cartes;
+		$cartes = CartePublique::all();
 		
-		return view('cartes.index')->with('cartes', $cartes);
+		return view('cartes-publiques.index')->with('cartes', $cartes);
 	}
 	
 	public function afficher(Request $request)
 	{
-		$carte = Auth::user()->cartes()->where('id', $request->id)->first();
+		$carte = CartePublique::where('id', $request->id)->first();
 		abort_unless($carte, 404);
 		
-		return view('cartes.afficher')->with('carte', $carte);
+		return view('cartes-publiques.afficher')->with('carte', $carte);
 	}
 	
 	public function creer()
 	{
 		$matieres = Matiere::all();
 		
-		return view('cartes.creer')->with('matieres', $matieres);
+		return view('cartes-publiques.creer')->with('matieres', $matieres);
 	}
 	
 	public function stocker(Request $request)
 	{
-		$carte = new Carte();
+		$carte = new CartePublique();
 		$carte->user_id = Auth::user()->id;
 		$carte->matiere_id = $request->matiere;
 		$carte->recto = $request->recto;
 		$carte->verso = $request->verso;
-		$carte->prochaine_revision = now();
 		$carte->save();
 		
-		return redirect(route('cartes.index').'?sauvegardé');
+		return redirect(route('cartes-publiques.index').'?sauvegardé');
 	}
 	
 	public function editer(Request $request)
 	{
 		$matieres = Matiere::all();
 		
-		$carte = Auth::user()->cartes()->where('id', $request->id)->first();
+		$carte = CartePublique::where('id', $request->id)->first();
 		abort_unless($carte, 404);
 		
-		return view('cartes.editer')->with('carte', $carte)->with('matieres', $matieres);
+		return view('cartes-publiques.editer')->with('carte', $carte)->with('matieres', $matieres);
 	}
 	
 	
 	public function sauvegarder(Request $request)
 	{
-		$carte = Auth::user()->cartes()->where('id', $request->id)->first();
+		$carte = CartePublique::where('id', $request->id)->first();
 		abort_unless($carte, 404);
 		$carte->matiere_id = $request->matiere;
 		$carte->recto = $request->recto;
 		$carte->verso = $request->verso;
-		$carte->public = $request->public ? true : false;
 		$carte->save();
-		return redirect(route('cartes.index').'?sauvegardé');
+		return redirect(route('cartes-publiques.index').'?sauvegardé');
 	}
 	
 	public function supprimer(Request $request)
 	{
-		$carte = Auth::user()->cartes()->where('id', $request->id)->first();
+		$carte = CartePublique::where('id', $request->id)->first();
 		abort_unless($carte, 404);
 		
 		$carte->delete();
 		
-		return redirect(route('cartes.index').'?supprimé');
+		return redirect(route('cartes-publiques.index').'?supprimé');
 	}
 	
 	public function publiques(Request $request)

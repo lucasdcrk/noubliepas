@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCartesTable extends Migration
+class CreateCartesPubliquesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateCartesTable extends Migration
      */
     public function up()
     {
-        Schema::create('cartes', function (Blueprint $table) {
+        Schema::create('cartes_publiques', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
             $table->integer('matiere_id')->unsigned();
             $table->string('recto');
             $table->string('verso');
-            $table->integer('nombre_revisions')->default(0);
-            $table->timestamp('prochaine_revision');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -33,6 +30,6 @@ class CreateCartesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cartes');
+        Schema::dropIfExists('cartes_publiques');
     }
 }
