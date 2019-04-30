@@ -31,4 +31,10 @@ class RevisionController extends Controller
     {
         $matiere = Matiere::findOrFail($request->id);
     }
+
+    public function je_savais(Request $request)
+    {
+
+        return redirect(back());
+    }
 }
