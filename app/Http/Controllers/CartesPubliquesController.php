@@ -4,16 +4,30 @@ namespace App\Http\Controllers;
 
 use App\CartePublique;
 use Illuminate\Http\Request;
+use App\Carte;
+use App\Matiere;
 
 class CartesPubliquesController extends Controller
 {
+	// Affichage des matières
     public function index()
 	{
-		$cartes = CartePublique::all();
+		$matieres = Matiere::all();
 		
-		return view('cartes-publiques.index')->with('cartes', $cartes);
+		return view('cartes_publiques.index')->with('matieres', $matieres);
+	}
+
+	// Affichage des cartes au sein d'une matière
+	public function matiere(Request $request)
+	{
+		$matiere = Matiere::findOrFail($request->id);
+		
+		$cartes = $matiere->cartes();
+
+		return view('cartes_publiques.matiere')->with('cartes', $cartes);
 	}
 	
+	// Affichage d'une carte 
 	public function afficher(Request $request)
 	{
 		$carte = CartePublique::where('id', $request->id)->first();
@@ -22,61 +36,18 @@ class CartesPubliquesController extends Controller
 		return view('cartes-publiques.afficher')->with('carte', $carte);
 	}
 	
-	public function creer()
-	{
-		$matieres = Matiere::all();
-		
-		return view('cartes-publiques.creer')->with('matieres', $matieres);
-	}
-	
-	public function stocker(Request $request)
-	{
-		$carte = new CartePublique();
-		$carte->user_id = Auth::user()->id;
-		$carte->matiere_id = $request->matiere;
-		$carte->recto = $request->recto;
-		$carte->verso = $request->verso;
-		$carte->save();
-		
-		return redirect(route('cartes-publiques.index').'?sauvegardé');
-	}
-	
-	public function editer(Request $request)
-	{
-		$matieres = Matiere::all();
-		
-		$carte = CartePublique::where('id', $request->id)->first();
-		abort_unless($carte, 404);
-		
-		return view('cartes-publiques.editer')->with('carte', $carte)->with('matieres', $matieres);
-	}
-	
-	
-	public function sauvegarder(Request $request)
-	{
-		$carte = CartePublique::where('id', $request->id)->first();
-		abort_unless($carte, 404);
-		$carte->matiere_id = $request->matiere;
-		$carte->recto = $request->recto;
-		$carte->verso = $request->verso;
-		$carte->save();
-		return redirect(route('cartes-publiques.index').'?sauvegardé');
-	}
-	
-	public function supprimer(Request $request)
+	// Copiage d'une carte
+	public function copier(Request $request)
 	{
 		$carte = CartePublique::where('id', $request->id)->first();
 		abort_unless($carte, 404);
 		
-		$carte->delete();
+		$ma_carte = new Carte();
+		$ma_carte->matiere_id = $carte->matiere_id;
+		$ma_carte->recto = $carte->recto;
+		$ma_carte->verso = $carte->verso;
+		$ma_carte->save();
 		
-		return redirect(route('cartes-publiques.index').'?supprimé');
-	}
-	
-	public function publiques(Request $request)
-	{
-		$matieres = Matiere::all();
-		
-		return view('cartes.publiques')->with('matieres', $matieres);
+		return redirect(route('cartes-publiques.index'));
 	}
 }
