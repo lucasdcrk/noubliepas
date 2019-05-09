@@ -18,7 +18,6 @@ class CreateCartesPubliquesTable extends Migration
             $table->integer('matiere_id')->unsigned();
             $table->string('recto');
             $table->string('verso');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

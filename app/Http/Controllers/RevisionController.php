@@ -69,28 +69,37 @@ class RevisionController extends Controller
     // La carte est sue, prochaine révision dans plus longtemps
     public function je_savais(Request $request)
     {
-        $carte = Auth::user()->cartes()->where('id',);
+        // Récupération de la carte en question
+        $carte = Auth::user()->cartes()->where('id', $request->id)->first();
 
+        // On incrémente le nombre de révisions réussies
         $carte->increment('niveau');
-        $carte->derniere_revison = now();
 
+        // On utilise la fonction e^x/4 pour déterminer le
+        // nombre de jours avant la prochaine révision
         $jours_avant_revision = round(exp($carte->niveau)/4);
+
         $carte->prochaine_revision = Carbon::now()->addDays($jours_avant_revision);
+        $carte->derniere_revison = now();
         $carte->save();
 
+        // On redirige l'utilisateur vers la page précédente
         return redirect(back());
     }
 
     // La carte n'est pas sue, prochaine révision dans pas longtemps
     public function je_ne_savais_pas(Request $request)
     {
-        $carte = Auth::user()->cartes()->where('id',);
+        $carte = Auth::user()->cartes()->where('id', $request->id)->first();
 
+        // Comme l'utilisateur à oublié, on met le nombre
+        // de révisions à sa valeur de départ
         $carte->niveau = 1;
         $carte->derniere_revison = now();
         $carte->prochaine_revision = now();
         $carte->save();
 
+        // On redirige l'utilisateur vers la page précédente
         return redirect(back());
     }
 }

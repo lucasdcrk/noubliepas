@@ -19,9 +19,9 @@ class CreateCartesTable extends Migration
             $table->integer('matiere_id')->unsigned();
             $table->string('recto');
             $table->string('verso');
-            $table->integer('nombre_revisions')->default(0);
+            $table->integer('niveau')->default(1);
+            $table->timestamp('derniere_revision');
             $table->timestamp('prochaine_revision');
-            $table->softDeletes();
             $table->timestamps();
         });
     }

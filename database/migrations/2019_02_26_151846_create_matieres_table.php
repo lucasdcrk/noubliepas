@@ -16,7 +16,6 @@ class CreateMatieresTable extends Migration
         Schema::create('matieres', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nom');
-            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

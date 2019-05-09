@@ -41,7 +41,7 @@
                         <div class="form-group form-check row">
                             <div class="col-md-6 offset-md-4">
                                 <input id="verso" type="checkbox" class="form-check-input" name="public" value="1">
-                                <label for="public" class="form-check-label">Publique ?</label>
+                                <label for="public" class="form-check-label">Recto verso interchangeables ?</label>
                             </div>
                         </div>
 

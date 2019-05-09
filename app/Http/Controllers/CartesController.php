@@ -39,6 +39,7 @@ class CartesController extends Controller
 		$carte->recto = $request->recto;
 		$carte->verso = $request->verso;
 		$carte->prochaine_revision = now();
+		$carte->derniere_revision = now();
 		$carte->save();
 		
 		return redirect(route('cartes.index').'?sauvegardé');
@@ -62,7 +63,6 @@ class CartesController extends Controller
 		$carte->matiere_id = $request->matiere;
 		$carte->recto = $request->recto;
 		$carte->verso = $request->verso;
-		$carte->public = $request->public ? true : false;
 		$carte->save();
 		return redirect(route('cartes.index').'?sauvegardé');
 	}
