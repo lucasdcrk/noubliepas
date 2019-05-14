@@ -20,8 +20,8 @@
                                 <h6>Réponse :</h6>
                                 <h3>{{ $carte->verso }}</h3>
                             </div>
-                            <a class="btn btn-success" href="">Je le savais</a>
-                            <a class="btn btn-danger" href="">J'ai oublié</a>
+                            <a class="btn btn-success" href="{{ url('reviser/carte/'.$carte->id.'/ok') }}">Je le savais</a>
+                            <a class="btn btn-danger" href="{{ url('reviser/carte/'.$carte->id.'/ko') }}">J'ai oublié</a>
                         </div>
                     </div>
                 </div>
