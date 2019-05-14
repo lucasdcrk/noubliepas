@@ -80,7 +80,7 @@ class RevisionController extends Controller
         $jours_avant_revision = round(exp($carte->niveau)/4);
 
         $carte->prochaine_revision = Carbon::now()->addDays($jours_avant_revision);
-        $carte->derniere_revison = now();
+        $carte->derniere_revision = now();
         $carte->save();
 
         // On redirige l'utilisateur vers la page précédente
@@ -95,7 +95,7 @@ class RevisionController extends Controller
         // Comme l'utilisateur à oublié, on met le nombre
         // de révisions à sa valeur de départ
         $carte->niveau = 1;
-        $carte->derniere_revison = now();
+        $carte->derniere_revision = now();
         $carte->prochaine_revision = now();
         $carte->save();
 
