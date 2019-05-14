@@ -68,7 +68,7 @@ Route::middleware('auth')->group(function() {
 	    Route::get('/', 'RevisionController@choix_matiere')->name('reviser.choix_matiere');
         Route::get('tout', 'RevisionController@reviser_tout')->name('reviser.tout');
         Route::get('{id}', 'RevisionController@reviser_matiere')->name('reviser.matiere');
-        Route::prefix('carte/{carte}')->group(function () {
+        Route::prefix('carte/{id}')->group(function () {
             Route::get('ok', 'RevisionController@je_savais');
             Route::get('ko', 'RevisionController@je_ne_savais_pas');
         });
