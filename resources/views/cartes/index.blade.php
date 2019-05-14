@@ -25,7 +25,7 @@
 						<th>Matière</th>
 						<th>Recto</th>
 						<th>Verso</th>
-						<th>Prochaine révision</th>
+						<th>Dernière révision</th>
 						<th>Crée le</th>
 						<th>Actions</th>
 					</tr>
@@ -36,7 +36,7 @@
 							<td>{{ $carte->matiere->nom }}</td>
 							<td>{{ $carte->recto }}</td>
 							<td>{{ $carte->verso }}</td>
-							<td>{{ $carte->prochaine_revision->diffForHumans() }}</td>
+							<td>{{ $carte->derniere_revision->diffForHumans() }}</td>
 							<td>{{ $carte->created_at->format('d/m/Y à H:i') }}</td>
 							<td>
 								<div class="btn-group btn-group-sm">
