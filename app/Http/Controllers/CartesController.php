@@ -9,13 +9,15 @@ use Illuminate\Http\Request;
 
 class CartesController extends Controller
 {
+    // Afficher toutes les cartes
 	public function index()
 	{
 		$cartes = Auth::user()->cartes;
 		
 		return view('cartes.index')->with('cartes', $cartes);
 	}
-	
+    
+	// Afficher le carte sélectionnée
 	public function afficher(Request $request)
 	{
 		$carte = Auth::user()->cartes()->where('id', $request->id)->first();
@@ -24,6 +26,7 @@ class CartesController extends Controller
 		return view('cartes.afficher')->with('carte', $carte);
 	}
 	
+    // Afficher l'interface de création de carte
 	public function creer()
 	{
 		$matieres = Matiere::all();
@@ -31,6 +34,7 @@ class CartesController extends Controller
 		return view('cartes.creer')->with('matieres', $matieres);
 	}
 	
+    // Enregistrer une nouvelle carte
 	public function stocker(Request $request)
 	{
 		$carte = new Carte();
@@ -45,6 +49,7 @@ class CartesController extends Controller
 		return redirect(route('cartes.index').'?sauvegardé');
 	}
 	
+    // Editer la carte sélectionnée
 	public function editer(Request $request)
 	{
 		$matieres = Matiere::all();
@@ -55,7 +60,7 @@ class CartesController extends Controller
 		return view('cartes.editer')->with('carte', $carte)->with('matieres', $matieres);
 	}
 	
-	
+	// Sauvegarder la carte sélectionée
 	public function sauvegarder(Request $request)
 	{
 		$carte = Auth::user()->cartes()->where('id', $request->id)->first();
@@ -67,6 +72,7 @@ class CartesController extends Controller
 		return redirect(route('cartes.index').'?sauvegardé');
 	}
 	
+    // Supprimer la carte sélectionnée
 	public function supprimer(Request $request)
 	{
 		$carte = Auth::user()->cartes()->where('id', $request->id)->first();
@@ -75,12 +81,5 @@ class CartesController extends Controller
 		$carte->delete();
 		
 		return redirect(route('cartes.index').'?supprimé');
-	}
-	
-	public function publiques(Request $request)
-	{
-		$matieres = Matiere::all();
-		
-		return view('cartes.publiques')->with('matieres', $matieres);
 	}
 }
