@@ -36,7 +36,11 @@
 							<td>{{ $carte->matiere->nom }}</td>
 							<td>{{ $carte->recto }}</td>
 							<td>{{ $carte->verso }}</td>
-							<td>{{ $carte->derniere_revision->diffForHumans() }}</td>
+							@if($carte->niveau === 1)
+								<td>--</td>
+							@else
+								<td>{{ $carte->derniere_revision->diffForHumans() }}</td>
+							@endif
 							<td>{{ $carte->created_at->format('d/m/Y à H:i') }}</td>
 							<td>
 								<div class="btn-group btn-group-sm">

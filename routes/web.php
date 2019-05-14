@@ -38,14 +38,10 @@ Route::middleware('auth')->group(function() {
 
     Route::prefix('cartes-publiques')->group(function() {
         Route::get('/', 'CartesPubliquesController@index')->name('cartes-publiques.index');
-        Route::get('creer', 'CartesPubliquesController@creer')->name('cartes-publiques.creer');
-        Route::post('creer', 'CartesPubliquesController@stocker');
+        Route::get('matiere/{id}', 'CartesPubliquesController@matiere')->name('cartes-publiques.matiere');
 
-        Route::prefix('{id}')->group(function() {
-			Route::get('afficher', 'CartesPubliquesController@afficher')->name('cartes-publiques.afficher');
-            Route::get('editer', 'CartesPubliquesController@editer')->name('cartes-publiques.editer');
-            Route::post('editer', 'CartesPubliquesController@sauvegarder');
-            Route::get('supprimer', 'CartesPubliquesController@supprimer')->name('cartes-publiques.supprimer');
+        Route::prefix('carte/{id}')->group(function() {
+			Route::get('/', 'CartesPubliquesController@afficher')->name('cartes-publiques.afficher');
             Route::get('copier', 'CartesPubliquesController@copier')->name('cartes-publiques.copier');
         });
 	});

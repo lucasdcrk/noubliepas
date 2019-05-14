@@ -14,17 +14,19 @@ class CartesPubliquesController extends Controller
 	{
 		$matieres = Matiere::all();
 		
-		return view('cartes_publiques.index')->with('matieres', $matieres);
+		return view('cartes_publiques.choix_matiere')->with('matieres', $matieres);
 	}
 
 	// Affichage des cartes au sein d'une matière
 	public function matiere(Request $request)
 	{
 		$matiere = Matiere::findOrFail($request->id);
-		
-		$cartes = $matiere->cartes();
 
-		return view('cartes_publiques.matiere')->with('cartes', $cartes);
+		if (count($matiere->cartes_publiques) === 0) {
+		    return redirect(route('cartes-publiques.index').'?vide');
+        }
+
+		return view('cartes_publiques.matiere')->with('matiere', $matiere);
 	}
 	
 	// Affichage d'une carte 

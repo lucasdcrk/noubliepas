@@ -16,10 +16,9 @@
                         <li class="list-group-item"><strong>Date de création :</strong> {{ $carte->created_at->format("d/m/Y H:i") }}</li>
                         <li class="list-group-item"><strong>Dernière modification :</strong> {{ $carte->updated_at->diffForHumans() }}</li>
 					</ul>
-					<a href="{{ route('cartes.supprimer', $carte->id) }}" class="btn btn-danger mt-2">Supprimer</a>				
+					<a href="{{ route('cartes-publiques.copier', $carte->id) }}" class="btn btn-primary mt-2">Copier </a>
                 </div>
             </div>
-            <a href="{{ route('cartes-publiques.index') }}" class="btn btn-primary mt-2">Retour</a>
         </div>
     </div>
 </div>

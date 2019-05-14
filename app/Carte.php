@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Carte extends Model
 {
-    protected $dates = ['prochaine_revision'];
+    protected $dates = ['prochaine_revision', 'derniere_revision'];
 	
 	public function auteur()
 	{
