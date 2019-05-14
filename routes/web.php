@@ -15,7 +15,14 @@ Auth::routes();
 
 Route::middleware('auth')->group(function() {
 	Route::get('/', 'AccueilController@index')->name('accueil');
-	
+
+	Route::get('supprimer_compte', function () {
+	    $user = \Illuminate\Support\Facades\Auth::user();
+	    $user->delete();
+
+	    return redirect('/');
+    });
+
 	Route::prefix('cartes')->group(function() {
 		Route::get('/', 'CartesController@index')->name('cartes.index');
 		Route::get('creer', 'CartesController@creer')->name('cartes.creer');
@@ -63,7 +70,7 @@ Route::middleware('auth')->group(function() {
         Route::get('{id}', 'RevisionController@reviser_matiere')->name('reviser.matiere');
         Route::prefix('carte/{carte}')->group(function () {
             Route::get('ok', 'RevisionController@je_savais');
-            Route::get('ko', 'RevisionController@je_ne_savais');
+            Route::get('ko', 'RevisionController@je_ne_savais_pas');
         });
 	});
 });
