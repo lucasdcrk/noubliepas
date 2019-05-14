@@ -22,6 +22,7 @@ class CreateCartesTable extends Migration
             $table->integer('niveau')->default(1);
             $table->timestamp('derniere_revision');
             $table->timestamp('prochaine_revision');
+            $table->boolean('interchangeable')->default(false);
             $table->timestamps();
         });
     }
