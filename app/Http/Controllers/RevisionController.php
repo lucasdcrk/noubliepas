@@ -84,7 +84,7 @@ class RevisionController extends Controller
         $carte->save();
 
         // On redirige l'utilisateur vers la page précédente
-        return redirect(back());
+        return redirect()->back();
     }
 
     // La carte n'est pas sue, prochaine révision dans pas longtemps
@@ -100,6 +100,6 @@ class RevisionController extends Controller
         $carte->save();
 
         // On redirige l'utilisateur vers la page précédente
-        return redirect(back());
+        return redirect()->back();
     }
 }
