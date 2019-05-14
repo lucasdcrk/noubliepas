@@ -11,6 +11,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $matieres = [
+            'Anglais - Notions',
+            'Anglais - Vocabulaire',
+            'Mathématiques',
+            'Physique',
+            'Chimie',
+            'Histoire',
+            'Géographie',
+            'Allemand',
+            'Espagnol'
+        ];
+
+        foreach($matieres as $m) {
+            $matiere = new \App\Matiere();
+            $matiere->nom = $m;
+            $matiere->save();
+        }
+
     }
 }
