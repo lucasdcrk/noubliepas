@@ -51,7 +51,7 @@
                         @else
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('reviser.choix_matiere') }}" v-pre>
-                                    Réviser maintenant
+                                    Réviser maintenant &nbsp; <span class="badge badge-primary">{{ count(auth()->user()->cartes()->where('prochaine_revision', '<=', \Carbon\Carbon::now())->get()) }} en attente</span>
                                 </a>
                             </li>
                             <li class="nav-item">

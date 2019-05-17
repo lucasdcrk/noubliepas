@@ -13,8 +13,6 @@
                         <li class="list-group-item"><strong>Matière :</strong> {{ $carte->matiere->nom }}</li>
                         <li class="list-group-item"><strong>Recto :</strong> {{ $carte->recto }}</li>
                         <li class="list-group-item"><strong>Verso :</strong> {{ $carte->verso }}</li>
-                        <li class="list-group-item"><strong>Date de création :</strong> {{ $carte->created_at->format("d/m/Y H:i") }}</li>
-                        <li class="list-group-item"><strong>Dernière modification :</strong> {{ $carte->updated_at->diffForHumans() }}</li>
 					</ul>
 					<a href="{{ route('cartes-publiques.copier', $carte->id) }}" class="btn btn-primary mt-2">Copier </a>
                 </div>

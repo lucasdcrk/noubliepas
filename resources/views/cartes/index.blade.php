@@ -26,6 +26,7 @@
 						<th>Recto</th>
 						<th>Verso</th>
 						<th>Dernière révision</th>
+						<th>Prochaine révision</th>
 						<th>Crée le</th>
 						<th>Actions</th>
 					</tr>
@@ -38,8 +39,10 @@
 							<td>{{ $carte->verso }}</td>
 							@if($carte->niveau === 1)
 								<td>--</td>
+								<td>Tout de suite</td>
 							@else
 								<td>{{ $carte->derniere_revision->diffForHumans() }}</td>
+								<td>Dans {{ $carte->prochaine_revision->diffInDays() }} jour(s)</td>
 							@endif
 							<td>{{ $carte->created_at->format('d/m/Y à H:i') }}</td>
 							<td>

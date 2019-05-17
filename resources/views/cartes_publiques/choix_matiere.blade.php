@@ -14,8 +14,13 @@
                                 Il n'y aucune carte dans cette matière.
                             </div>
                         @endisset
+                        @isset($_GET['copié'])
+                            <div class="alert alert-success" role="alert">
+                                Cette carte a été ajoutée à vos cartes.
+                            </div>
+                        @endisset
                         @foreach($matieres as $matiere)
-                            <a class="btn btn-primary my-1" href="{{ route('cartes-publiques.matiere', ['id' => $matiere->id]) }}">{{ $matiere->nom }}</a>
+                            <a class="btn btn-primary my-1" href="{{ route('cartes-publiques.matiere', ['id' => $matiere->id]) }}">{{ $matiere->nom }} ({{ count($matiere->cartes_publiques) }})</a>
                         @endforeach
                     </div>
                 </div>

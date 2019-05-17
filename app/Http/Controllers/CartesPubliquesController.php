@@ -35,7 +35,7 @@ class CartesPubliquesController extends Controller
 		$carte = CartePublique::where('id', $request->id)->first();
 		abort_unless($carte, 404);
 		
-		return view('cartes-publiques.afficher')->with('carte', $carte);
+		return view('cartes_publiques.afficher')->with('carte', $carte);
 	}
 	
 	// Copiage d'une carte
@@ -45,11 +45,14 @@ class CartesPubliquesController extends Controller
 		abort_unless($carte, 404);
 		
 		$ma_carte = new Carte();
+		$ma_carte->user_id = auth()->user()->id;
 		$ma_carte->matiere_id = $carte->matiere_id;
 		$ma_carte->recto = $carte->recto;
 		$ma_carte->verso = $carte->verso;
+		$ma_carte->derniere_revision = now();
+		$ma_carte->prochaine_revision = now();
 		$ma_carte->save();
 		
-		return redirect(route('cartes-publiques.index'));
+		return redirect(route('cartes-publiques.index').'?copié');
 	}
 }

@@ -14,9 +14,9 @@
                                 Il n'y aucune carte à réviser dans cette matière.
                             </div>
                         @endisset
-                        <a class="btn btn-primary" href="{{ route('reviser.tout') }}">Toutes matières confondues</a>
+                        <a class="btn btn-primary" href="{{ route('reviser.tout') }}">Toutes matières confondues ({{ count(auth()->user()->cartes()->where('prochaine_revision', '<=', \Carbon\Carbon::now())->get()) }} à réviser)</a>
                         @foreach($matieres as $matiere)
-                            <a class="btn btn-primary my-1" href="{{ route('reviser.matiere', ['id' => $matiere->id]) }}">{{ $matiere->nom }}</a>
+                            <a class="btn btn-primary my-1" href="{{ route('reviser.matiere', ['id' => $matiere->id]) }}">{{ $matiere->nom }} ({{ count($matiere->cartes()->where('prochaine_revision', '<=', \Carbon\Carbon::now())->get()) }} à réviser)</a>
                         @endforeach
                     </div>
                 </div>
